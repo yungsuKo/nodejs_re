@@ -6,42 +6,71 @@ var app = http.createServer(function(request,response){
     var _url = request.url;
     var queryData = url.parse(_url, true).query;
     var title = queryData.id;
-    console.log(queryData.id);
+    var pathname = url.parse(_url,true).pathname;
 
-    if(_url == '/'){
-      title = 'Welcome';
+    if(pathname === '/'){
+      if(queryData.id === undefined){
+        var title = 'Welcome';
+        var description = 'Hello NodeJS';
+        var template =
+        `
+          <html>
+          <head>
+            <title>WEB1 - ${title}</title>
+            <meta charset="utf-8">
+          </head>
+          <body>
+            <h1><a href="index.html">WEB</a></h1>
+            <ol>
+              <li><a href="/?id=HTML">HTML</a></li>
+              <li><a href="/?id=CSS">CSS</a></li>
+              <li><a href="/?id=JavaScript">JavaScript</a></li>
+            </ol>
+            <h2>${title}</h2>
+            <p>
+            ${description}
+            </p>
+          </body>
+          </html>
+        `;
+        response.writeHead(200);
+        response.end(template);
+      }
+      else{
+        fs.readFile(`data/${queryData.id}`, 'utf-8',function(err, data){
+          console.log(title);
+          var description = data;
+          var template =
+          `
+            <html>
+            <head>
+              <title>WEB1 - ${title}</title>
+              <meta charset="utf-8">
+            </head>
+            <body>
+              <h1><a href="index.html">WEB</a></h1>
+              <ol>
+                <li><a href="/?id=HTML">HTML</a></li>
+                <li><a href="/?id=CSS">CSS</a></li>
+                <li><a href="/?id=JavaScript">JavaScript</a></li>
+              </ol>
+              <h2>${title}</h2>
+              <p>
+              ${description}
+              </p>
+            </body>
+            </html>
+          `;
+          response.writeHead(200);
+          response.end(template);
+        })
+      };
     }
-    if(_url == '/favicon.ico'){
+    else{
       response.writeHead(404);
-      response.end();
+      response.end('Not found');
       return;
     }
-    response.writeHead(200);
-    fs.readFile(`data/${queryData.id}`, 'utf-8',function(err, data){
-      var description = data;
-      var template =
-      `
-        <html>
-        <head>
-          <title>WEB1 - ${title}</title>
-          <meta charset="utf-8">
-        </head>
-        <body>
-          <h1><a href="index.html">WEB</a></h1>
-          <ol>
-            <li><a href="/?id=HTML">HTML</a></li>
-            <li><a href="/?id=CSS">CSS</a></li>
-            <li><a href="/?id=JavaScript">JavaScript</a></li>
-          </ol>
-          <h2>${title}</h2>
-          <p>
-          ${description}
-          </p>
-        </body>
-        </html>
-      `
-      
-    })
-    response.end(template);
 });
+
 app.listen(3000);
