@@ -1,0 +1,34 @@
+{
+  "devDependencies": {
+    "@types/sanitize-html": "^2.6.2"
+  },
+  "name": "nodejs_re",
+  "description": "",
+  "version": "1.0.0",
+  "main": "main.js",
+  "directories": {
+    "lib": "lib"
+  },
+  "dependencies": {
+    "dom-serializer": "^1.4.1",
+    "domelementtype": "^2.3.0",
+    "domhandler": "^4.3.1",
+    "domutils": "^2.8.0",
+    "entities": "^2.2.0",
+    "htmlparser2": "^6.1.0",
+    "sanitize-html": "^2.7.0"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/yungsuKo/nodejs_re.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/yungsuKo/nodejs_re/issues"
+  },
+  "homepage": "https://github.com/yungsuKo/nodejs_re#readme"
+}
